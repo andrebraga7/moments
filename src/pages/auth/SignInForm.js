@@ -14,21 +14,23 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 import axios from "axios";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 function SignInForm() {
+  const setCurrentUser = useSetCurrentUser();
 
-// useState definitions
+  // useState definitions
   const [signInData, setSignInData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
 
-//   Variables
+  //   Variables
   const { username, password } = signInData;
   const history = useHistory();
 
-// Event handlers
+  // Event handlers
   const handleChange = (event) => {
     setSignInData({
       ...signInData,
@@ -39,8 +41,9 @@ function SignInForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/dj-rest-auth/login/", signInData);
-      history.push('/')
+      const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      setCurrentUser(data.user);
+      history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -53,7 +56,6 @@ function SignInForm() {
           <h1 className={styles.Header}>sign in</h1>
 
           <Form onSubmit={handleSubmit}>
-
             <Form.Group controlId="username">
               <Form.Label className="d-none">username</Form.Label>
               <Form.Control
@@ -99,7 +101,6 @@ function SignInForm() {
                 {message}
               </Alert>
             ))}
-
           </Form>
         </Container>
         <Container className={`mt-3 ${appStyles.Content}`}>
