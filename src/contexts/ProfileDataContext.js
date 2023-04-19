@@ -37,15 +37,13 @@ export const ProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   const handleUnfollow = async (clickedProfile) => {
     try {
-      const { data } = await axiosRes.delete(
-        `/followers/${clickedProfile.following_id}`
-      );
+      await axiosRes.delete(`/followers/${clickedProfile.following_id}`);
       setProfileData((prevState) => ({
         ...prevState,
         pageProfile: {
@@ -61,7 +59,7 @@ export const ProfileDataProvider = ({ children }) => {
         },
       }));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -76,7 +74,7 @@ export const ProfileDataProvider = ({ children }) => {
           popularProfiles: data,
         }));
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     };
 

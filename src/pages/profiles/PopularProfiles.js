@@ -1,7 +1,6 @@
 import React from "react";
 import appStyles from "../../App.module.css";
 import Container from "react-bootstrap/Container";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Asset from "../../components/Asset";
 import Profile from "./Profile";
 import { useProfileData } from "../../contexts/ProfileDataContext";
@@ -9,7 +8,6 @@ import { useProfileData } from "../../contexts/ProfileDataContext";
 const PopularProfiles = ({ mobile }) => {
   // Variables
   const { popularProfiles } = useProfileData();
-  const currentUser = useCurrentUser();
 
   // Event handlers
 
