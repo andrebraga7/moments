@@ -16,3 +16,33 @@ export const fetchMoreData = async (resource, setResource) => {
     console.log(err);
   }
 };
+
+export const followHelper = (profile, clickedProfile, following_id) => {
+  return profile.id === clickedProfile.id
+    ? // The profile that was clicked is the same
+      {
+        ...profile,
+        followers_count: profile.followers_count + 1,
+        following_id,
+      }
+    : profile.is_owner
+    ? // Update the following count
+      { ...profile, following_count: profile.following_count + 1 }
+    : // Just return the profile unchanged
+      profile;
+};
+
+export const unfollowHelper = (profile, clickedProfile) => {
+  return profile.id === clickedProfile.id
+    ? // The profile that was clicked is the same
+      {
+        ...profile,
+        followers_count: profile.followers_count - 1,
+        following_id: null,
+      }
+    : profile.is_owner
+    ? // Update the following count
+      { ...profile, following_count: profile.following_count - 1 }
+    : // Just return the profile unchanged
+      profile;
+};
